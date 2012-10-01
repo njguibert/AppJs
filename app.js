@@ -16,7 +16,7 @@ var servidor=require("socket.io").listen(4000);
 var sockets={};
 servidor.sockets.on("connection",arranque);
 var visores=[];
-var admins=[];//administradoresssssssssssssssssss
+var admins=[];
 
 function arranque(usuario){
   console.log("Usuario ID:"+usuario.id);
