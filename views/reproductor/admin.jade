@@ -1,0 +1,25 @@
+extends ../layout
+block content
+  script(src="/javascripts/reproductor/admin.coffee",type="text/coffeescript")
+  body
+  #app.well.container
+    .navbar.banvbar-fixed-top
+      .navbar-inner
+        .container(id="encabezado")
+          a.brand(href="#") Sistema Multimedia Administracion
+          img(src="images/logo_chico.jpg").pull-right
+    .row
+      .span12
+        form(id="frmFileUploader",method="post",enctype="multipart/form-data",action="/cargarmp3")
+          legend Cargar nuevos temas
+          span(class="btn btn-success fileinput-button")
+            i(class="icon-plus icon-white")
+            span Musica
+            input(type="file",name="archivo[]",multiple,id="INmusica")
+          span(class="btn btn-success fileinput-button")
+            i(class="icon-plus icon-white")
+            span Subir tema            
+            input(type="submit")
+        output(id="list")
+  footer
+    p(style="text-align:center")  © Desarrollado por SuperStar Ltda

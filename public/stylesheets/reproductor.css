@@ -1,0 +1,49 @@
+body {
+
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+#frmFileUploader input{
+  opacity: 0;
+  position: absolute;
+  -moz-transform:  scale(4);
+  cursor:pointer;
+}
+#temas{
+	cursor:pointer;
+	overflow:scroll;
+	height:500px;
+}
+#temas form legend {
+	background-color:#656500;
+	color: white;
+	text-align: center;
+}
+#comerciales{
+	cursor:pointer;
+	height:500px;
+}
+#comerciales form legend {
+	background-color:#656500;
+	color: white;
+	text-align: center;
+}
+li{
+	list-style: none;
+font: 14px ,Helvetica, Arial, sans-serif;
+}
+marquee{
+	background-color:#003F3F;
+	color:white;
+	font-size:22px;
+	height: 50px;
+}
+
+.selected{
+	font-size: 20px;
+	color:white;
+	background-color:#3F003F;
+}

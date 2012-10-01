@@ -1,0 +1,39 @@
+extends ../layout
+block content
+  link(rel='stylesheet', href='/stylesheets/reproductor.css')
+  script(type="text/javascript",src="http://192.168.0.130:4000/socket.io/socket.io.js")
+  script(src="/javascripts/reproductor/main.coffee",type="text/coffeescript")
+  body
+    #app.well.container
+      .navbar.banvbar-fixed-top
+        .navbar-inner
+          .container(id="encabezado")
+            a.brand(href="#") Sistema Multimedia
+            img(src="../images/logo_chico.jpg").pull-right
+      .row
+        .span12
+          .row-fluid
+            section(id="reproductor")
+              #player.offset2
+                .row
+                  marquee(class="span6")
+                    p(style="text-align:center;",id="tema_actual")  Para comenzar haga click en un tema          
+                .row
+                  audio(controls="controls",autoplay,class="span6")
+                    source(type="audio/mp3",id="tema_actual")
+                .row
+                  a(href="#",id="anterior",class="btn btn-inverse span3") Anterior
+                    i(class="icon-step-backward")
+                  a(href="#",id="siguiente",class="btn btn-primary span3") Siguiente
+                    i(class="icon-step-forward")
+              br
+              ul
+              
+              #temas(class="span6 well")
+                form
+                  legend Listado de Temas
+              #comerciales(class="span5 well")
+                form
+                  legend Listado de Comerciales          
+    footer
+      p(style="text-align:center")  © Desarrollado por SuperStar Ltda
