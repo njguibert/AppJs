@@ -1,17 +1,21 @@
 $(function(){
-	//var path="http://localhost";
-	var path="http://192.168.0.16";
+	var path="http://localhost";
+	//var path="http://192.168.0.16";
 	var websocket = io.connect(path+":4000",{ 'connect timeout': 5000 });
-	//var websocket = io.connect(path+":4000");
 	var terminal;
 	var conectado=true;
 	if(localStorage.getItem('terminal')){
 		terminal=localStorage.getItem('terminal');
-
 	}
 	else{
 		terminal=prompt('Ingrese el nombre de esta terminal:','');
 		localStorage.setItem('terminal',terminal);
+	}
+	if(localStorage.getItem('msgsubliminar')){
+		$("marquee p").text(localStorage.getItem('msgsubliminar'));
+	}
+	else{
+		$("marquee p").text("Mensaje Subliminar va aca....");
 	}
 	
 	websocket.emit("setTipo","visor",terminal);
@@ -32,37 +36,35 @@ $(function(){
 
 	var Reproductor= Backbone.View.extend({
 		el: "#app",
-	initialize:function(){
-		_.bindAll(this,'respuesta','cargarvideo','cargarfotos');
-		this.posicion=0; //Posicion del video reproduciendose
-		self=this;
-		fotos.fetch({success : self.cargarfotos});
-		temas.fetch({success : self.respuesta});
-		$("video").on("ended", function() {
-			//alert("paso al siguiente");
-			self.posicion=self.posicion+1;
-			self.cargarvideo();
-		});
-		$(document).bind('click', function(){
-			valor_actual++;
-			controlador.emitir_valor(valor_actual);
-		});
-
-		$(document).keypress(function(event){
-		event.preventDefault();
-		switch(event.which){
-			case 49:
-			    if (valor_actual>=99) valor_actual=0
-				else valor_actual++;
+		initialize:function(){
+			_.bindAll(this,'respuesta','cargarvideo','cargarfotos');
+			this.posicion=0; //Posicion del video reproduciendose
+			self=this;
+			fotos.fetch({success : self.cargarfotos});
+			temas.fetch({success : self.respuesta});
+			$("video").on("ended", function() {
+				self.posicion=self.posicion+1;
+				self.cargarvideo();
+			});
+			$(document).bind('click', function(){
+				valor_actual++;
 				controlador.emitir_valor(valor_actual);
-			break;
-			case 50:
-			  if (valor_actual<=0) valor_actual=99
-			  else valor_actual--;
-			  controlador.emitir_valor(valor_actual);
-			break;
-		}
-		});		
+			});
+			$(document).keypress(function(event){
+			event.preventDefault();
+			switch(event.which){
+				case 49:
+				  if (valor_actual>=99) valor_actual=0
+					else valor_actual++;
+					controlador.emitir_valor(valor_actual);
+				break;
+				case 50:
+				  if (valor_actual<=0) valor_actual=99
+				  else valor_actual--;
+				  controlador.emitir_valor(valor_actual);
+				break;
+			}
+			});
 	},
 	cargarfotos:function(){ //Cargo las fotos en el visor
 		fotos.each(function(f){
@@ -70,9 +72,7 @@ $(function(){
 		});
 	},
 	respuesta:function(){
-      setTimeout(function(){
-        $("video")[0].play();
-              },3000);		
+      setTimeout(function(){ $("video")[0].play();},3000);		
 	},
 	cargarvideo:function(){
 		if(this.posicion==temas.length){
@@ -86,12 +86,12 @@ $(function(){
   var Controlador = Backbone.Router.extend({
   	  initialize:function(){
   	  	_.bindAll(this,'emitir_valor','cambiar_msgsubliminar','recargar_pagina','borrar_terminal');//,'disconnect','connect');
-		websocket.on("emitir_valor",this.emitir_valor);
-		websocket.on("cambiar_msgsubliminar",this.cambiar_msgsubliminar);
-		websocket.on("recargar_pagina",this.recargar_pagina);
-		websocket.on("borrar_terminal",this.borrar_terminal);
-		websocket.on("disconnect",this.disconnect);//Se perdio la conexion
-		websocket.on("connect",this.connect);//Se establecio conexion
+				websocket.on("emitir_valor",this.emitir_valor);
+				websocket.on("cambiar_msgsubliminar",this.cambiar_msgsubliminar);
+				websocket.on("recargar_pagina",this.recargar_pagina);
+				websocket.on("borrar_terminal",this.borrar_terminal);
+				websocket.on("disconnect",this.disconnect);//Se perdio la conexion
+				websocket.on("connect",this.connect);//Se establecio conexion
   	  },
       routes:{
         '':'loadpage',
@@ -116,47 +116,22 @@ $(function(){
       	if(! $('#contenidosecundario').is(':visible') ) {
 	      	$('#contenido').fadeOut('slow', function() { 		
 	      		$('#contenidosecundario').fadeIn('slow', function() {
-
-
-  /*$("body").animate({
-  	 backgroundColor: "#FF2020",
-  }, 1000 );
-  $("body").animate({
-  	 backgroundColor: "#3F003F",
-  }, 1000 );  
-    $("body").animate({
-  	 backgroundColor: "white",
-  }, 1000 );  
-  $("#contenidosecundario label").animate({
-    marginLeft: "300px",
-  }, 1000 );
-  $("#contenidosecundario label").animate({
-    marginLeft: "-300px",
-  }, 1000 ); 
-  $("#contenidosecundario label").animate({
-    marginLeft: "300px",
-  }, 1000 ); */
-				
-	      			setTimeout(function(){
+        			setTimeout(function(){
 	      				$('#contenidosecundario').fadeOut('slow', function() {
 	      					$('#contenido').fadeIn('slow', function() {
-								//$("#visor").carousel('next');
 								$("#visor").carousel('pause');
-								//$("video")[0].play();
-
 	      					});
 	      				});
 	      			},3000);
 	      		});
 	      	});
 		}
-
-
-
       	$("label").text(valor_actual);
       },
       cambiar_msgsubliminar:function(mensaje){
       	$("marquee p").text(mensaje);
+      	localStorage.setItem('msgsubliminar',mensaje);
+      	//$("marquee p").text("");
       },
       recargar_pagina:function(){
       	window.location.reload();

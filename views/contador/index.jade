@@ -1,7 +1,7 @@
 extends ../layout
 block content
   link(rel='stylesheet', href='/stylesheets/contador.css')
-  script(type="text/javascript",src="http://192.168.0.16:4000/socket.io/socket.io.js")
+  script(type="text/javascript",src="http://192.168.0.130:4000/socket.io/socket.io.js")
   script(type="text/javascript",src="/stylesheets/js/bootstrap-transition.js")
   script(type="text/javascript",src="/stylesheets/js/bootstrap-carousel.js")
   script(type="text/javascript",src="/javascripts/contador/main.js")
@@ -27,7 +27,7 @@ block content
           label 0
       .row
       marquee
-        p(style="text-align:center;")  Mensaje Subliminar va aca....
+        p(style="text-align:center;")
     #contenidosecundario(style="display:none;")
       center
         img(src="/images/logo_grande_20a.jpg",width="150px",align='right')
