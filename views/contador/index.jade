@@ -1,7 +1,7 @@
 extends ../layout
 block content
   link(rel='stylesheet', href='/stylesheets/contador.css')
-  script(type="text/javascript",src="http://192.168.0.130:4000/socket.io/socket.io.js")
+  script(type="text/javascript",src="http://192.168.0.16:4000/socket.io/socket.io.js")
   script(type="text/javascript",src="/stylesheets/js/bootstrap-transition.js")
   script(type="text/javascript",src="/stylesheets/js/bootstrap-carousel.js")
   script(type="text/javascript",src="/javascripts/contador/main.js")
@@ -16,10 +16,10 @@ block content
                   img(src="/contador/fotos/Super-Star-2012-Abuelos-234.jpg",align="right")
           .row(style="height: 250px;")
             #video(muted,preload="true",width="200",src="videos/1.mp4")
-            video(muted,autoplay,preload="true",width="350",src="/contador/videos/1.mp4",id="video")
+            video(muted,autoplay,preload="true",width="350",height="158px",src="/contador/videos/2.mp4",id="video")
             audio(preload="auto",autobuffer)
-              source(src="dingdong.mp3")
-              source(src="dingdong.ogg",type="audio/ogg")
+              source(src="/contador/dingdong.mp3")
+              source(src="/contador/dingdong.ogg",type="audio/ogg")
 
       #contador
         center

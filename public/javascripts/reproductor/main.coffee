@@ -1,5 +1,5 @@
 $ ->
-  websocket =io.connect("http://192.168.0.130:4000",{ 'connect timeout': 5000 ,'reconnection delay': 500})
+  websocket =io.connect("http://192.168.0.16:4000",{ 'connect timeout': 5000 ,'reconnection delay': 500})
   conectado=true
   class TemaModel extends Backbone.Model
 

@@ -1,6 +1,6 @@
 $(function(){
 	//var path="http://localhost";
-	var path="http://192.168.0.130";
+	var path="http://192.168.0.16";
 	var websocket = io.connect(path+":4000",{ 'connect timeout': 5000 });
 	//var websocket = io.connect(path+":4000");
 	var terminal;
@@ -39,6 +39,7 @@ $(function(){
 		fotos.fetch({success : self.cargarfotos});
 		temas.fetch({success : self.respuesta});
 		$("video").on("ended", function() {
+			//alert("paso al siguiente");
 			self.posicion=self.posicion+1;
 			self.cargarvideo();
 		});
